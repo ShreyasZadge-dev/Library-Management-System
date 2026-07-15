@@ -17,6 +17,7 @@ public class BookManager {
 
     ArrayList<Book> book_list = null;
 
+    @SuppressWarnings("unchecked")
     public BookManager() {
         book_list = new ArrayList<Book>();
         if (book_file.exists()) {

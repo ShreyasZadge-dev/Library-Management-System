@@ -17,12 +17,13 @@ public class StudentManager {
     File student_file=null;
     ArrayList <Student> student_list=null;
 
+    @SuppressWarnings("unchecked")
     public StudentManager(){
         student_file= new File("Student.dat");
         student_list= new ArrayList<Student>();
 
         if(student_file.exists()){
-            try(){
+            try{
             ois_student=new ObjectInputStream(new FileInputStream(student_file));
             student_list =(ArrayList<Student>)ois_student.readObject();
             }
