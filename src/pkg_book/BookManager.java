@@ -37,6 +37,13 @@ public class BookManager {
             }
         }
     }
+    public void listBooksBySubject(String subject){
+        for (Book book : book_list) {
+            if (book.getSubject()==subject) {
+                System.out.println(book);
+            }
+        }
+    }
 
     public void addBook(Book book){
      book_list.add(book);
