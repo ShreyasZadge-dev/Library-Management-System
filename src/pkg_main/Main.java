@@ -183,6 +183,26 @@ public class Main {
                             bm.addBook(add_book);
                             System.out.println("book added !");
                             break;
+                        case 24:// update a record
+                            int update_isbn=Integer.parseInt(prompt("Enter ISBN to update : "));
+                             title=prompt("Enter Title : ");
+                            author=prompt("Enter Author : ");
+                            publisher=prompt("Enter Publisher : ");
+                            edition=Integer.parseInt(prompt("Enter Edition : "));
+                            subject=prompt("Enter a Subject : ");
+                            available_quantity=Integer.parseInt(prompt("Enter Available Quanitity : "));
+                            bm.updateBook(update_isbn, title, author, publisher, edition, subject, available_quantity);
+                            System.out.println("Record Updated !");
+                            break;    
+                        case 25: // delete a record
+                              int delete_isbn=Integer.parseInt(prompt("Enter ISBN to Delete : "));
+                              if (bm.deleteBook(delete_isbn)) {
+                                System.out.println("Record a Deleted");
+                              }
+                              else{
+                                System.out.println("Record not found to delete");
+                              }
+                            break;    
                         case 99:
                             System.out.println("thanks for using program");
                             break;
