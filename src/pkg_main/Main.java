@@ -128,7 +128,7 @@ public class Main {
                             sm.addAStudent(student);
                             System.out.println("Student Added !");
                             break;
-                        case 14:
+                        case 14: // update student
                             try {
                                 int modify_rollno = Integer.parseInt(prompt("Enter A Rollno:"));
                                 student = sm.get(modify_rollno);
@@ -148,6 +148,7 @@ public class Main {
                             } catch (StudentNotFoundException es) {
                                 System.out.println(es);
                             }
+                            break;
 
                         case 15:// delete a student
                             int delete_rollno = Integer.parseInt(prompt("Enter A Rollno:"));
@@ -170,6 +171,7 @@ public class Main {
 
         } while (choice != 3);
         sm.writeToFile();
+        sc.close();
 
     }
 }

@@ -1,8 +1,10 @@
 package pkg_person;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
-abstract public class Person {
+abstract public class Person implements Serializable{
+    private static final long serialVersionUID = 1L;
     protected String name;
     protected String emailId;
     protected String phonenumber;
@@ -14,7 +16,7 @@ abstract public class Person {
     }
 
     public void setName(String name) {
-        boolean isValidName = Pattern.matches("[a-zA-Z]+", name);
+        boolean isValidName = Pattern.matches("^[a-zA-Z\\s]+$", name);
         this.name = name;
         if (isValidName) {
             this.name = name;
@@ -53,11 +55,11 @@ abstract public class Person {
     }
 
     public void setDob(String dob) {
-        boolean isValidDob = Pattern.matches("\\d{2}-\\d{2}\\d{4}", dob);
-        if (isValidDob) {
+        // boolean isValidDob = Pattern.matches("\\d{2}-\\d{2}-\\d{4}", dob);
+        // if (isValidDob) {
             this.dob = dob;
-        }
-        this.dob = "01-06-2005";
+        // }
+        // this.dob = "01-06-2005";
     }
 
     public Person(String name, String emailId, String phonenumber, String address, String dob) {

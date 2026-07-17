@@ -35,10 +35,7 @@ public class Student extends Person {
     @Override
     public String toString() {
         return "Student [name=" + name + ", rollNo=" + rollNo + ", std=" + std + ", emailId=" + emailId + ", divsion="
-                + divsion + ", phonenumber=" + phonenumber + ", address=" + address + ", dob=" + dob + ", getRollNo()="
-                + getRollNo() + ", getName()=" + getName() + ", getStd()=" + getStd() + ", getEmailId()=" + getEmailId()
-                + ", getDivsion()=" + getDivsion() + ", getPhonenumber()=" + getPhonenumber() + ", getAddress()="
-                + getAddress() + ", getDob()=" + getDob() + "]";
+                + divsion + ", phonenumber=" + phonenumber + ", address=" + address + ", dob=" + dob + "]";
     }
     
     

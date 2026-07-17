@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.ListIterator;
+// import java.util.Iterator;
 import java.lang.ClassNotFoundException;
 
 public class StudentManager {
@@ -53,7 +54,7 @@ public class StudentManager {
     }
 
     public boolean deleteStudent(int rollno) {
-        ListIterator<Student> student_iter = (ListIterator<Student>) student_list.iterator();
+         ListIterator<Student> student_iter = (ListIterator<Student>) student_list.listIterator();
         while (student_iter.hasNext()) {
             Student student = student_iter.next();
             if (student.getRollNo() == rollno) {
@@ -70,9 +71,9 @@ public class StudentManager {
             String dob, int std,
             String divsion) {
 
-        ListIterator<Student> student_iter = (ListIterator<Student>) student_list.iterator();
+        ListIterator<Student> student_iter = (ListIterator<Student>) student_list.listIterator();
         while (student_iter.hasNext()) {
-            Student student = student_iter.next();
+            Student student = (Student)student_iter.next();
             if (student.getRollNo() == update_rollno) {
                 student.setAddress(address);
                 student.setDivsion(divsion);
