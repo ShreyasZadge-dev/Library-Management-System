@@ -3,6 +3,7 @@ package pkg_book;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -64,7 +65,7 @@ public class BookManager {
     }
      
     public boolean deleteBook(int delete_isbn){
-       ListIterator <Book> bool_iterator =(ListIterator <Book>)book_list.iterator();
+       ListIterator <Book> bool_iterator =(ListIterator <Book>)book_list.listIterator();
        while (bool_iterator.hasNext()) {
         Book book =bool_iterator.next();
         if(book.getIsbn()==delete_isbn){
@@ -74,6 +75,36 @@ public class BookManager {
        }
        return false;
     }
+  
+    public boolean updateBook(int update_isbn,String title, String author, String publisher, int edition, String subject,
+            int available_quantity){
+       ListIterator <Book> bool_iterator =(ListIterator <Book>)book_list.listIterator();
+       while (bool_iterator.hasNext()) {
+        Book book =bool_iterator.next();
+        if(book.getIsbn()==update_isbn){
+            // book_list.remove(book);
+            book.setAuthor(author);
+            book.setAvailable_quantity(available_quantity);
+            book.setEdition(edition);
+            book.setPublisher(publisher);
+            book.setSubject(subject);
+            book.setTitle(title);
+            return true;
+        }
+       }
+       return false;
+    }
+
+    public void writeToFile(){
+        try {
+            oos_book=new ObjectOutputStream(new FileOutputStream(book_file));
+            oos_book.writeObject(book_list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
 
 
 }

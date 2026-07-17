@@ -2,6 +2,7 @@ package pkg_main;
 
 import java.util.Scanner;
 
+import pkg_book.Book;
 import pkg_book.BookManager;
 import pkg_exception.StudentNotFoundException;
 import pkg_person.Student;
@@ -158,6 +159,30 @@ public class Main {
                                 System.out.println("Roll no Does not Exits to delete");
                             }
                             break;
+                        case 21:// view all books
+                            System.out.println("====== All Records ======");
+                            bm.viewAllBooks();
+                            break;
+                        case 22:// search by book by isbn
+                            int search_isbn = Integer.parseInt(prompt("Enter isbn to search : "));
+                            Book serach_book = bm.searchBookByIsbn(search_isbn);
+                            if (serach_book == null)
+                                System.out.println("Book Not Found");
+                            else
+                                System.out.println(serach_book);
+                            break;
+                        case 23: // add a book to libray
+                            int isbn=Integer.parseInt(prompt("Enter ISBN : "));
+                            String title=prompt("Enter Title : ");
+                            String author=prompt("Enter Author : ");
+                            String publisher=prompt("Enter Publisher : ");
+                            int edition=Integer.parseInt(prompt("Enter Edition : "));
+                            String subject=prompt("Enter a Subject : ");
+                            int available_quantity=Integer.parseInt(prompt("Enter Available Quanitity : "));
+                            Book add_book = new Book(isbn, title, author, publisher, edition, subject, available_quantity);
+                            bm.addBook(add_book);
+                            System.out.println("book added !");
+                            break;
                         case 99:
                             System.out.println("thanks for using program");
                             break;
@@ -171,6 +196,7 @@ public class Main {
 
         } while (choice != 3);
         sm.writeToFile();
+        bm.writeToFile();
         sc.close();
 
     }
