@@ -1,6 +1,9 @@
 package pkg_transaction;
 
-public class Booktransaction {
+import java.io.Serializable;
+
+public class Booktransaction implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int isbn;
     private int rollno;
     private String issueDate;

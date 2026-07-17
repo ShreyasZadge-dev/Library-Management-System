@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import pkg_book.Book;
 import pkg_book.BookManager;
+import pkg_exception.BookNotFoundException;
 import pkg_exception.StudentNotFoundException;
 import pkg_person.Student;
 import pkg_person.StudentManager;
@@ -52,20 +53,66 @@ public class Main {
 
                         switch (stud_choice) {
                             case 1:
-                                System.out.println("View All Books");
+                                System.out.println("====== All Records ======");
+                                bm.viewAllBooks();
                                 break;
-                            case 2:
+                            case 2: // serach book by isbn
                                 System.out.println("To Serach Book by Isbn");
+                                int search_isbn = Integer.parseInt(prompt("Enter isbn to search : "));
+                                Book serach_book = bm.searchBookByIsbn(search_isbn);
+                                if (serach_book == null)
+                                    System.out.println("Book Not Found");
+                                else
+                                    System.out.println(serach_book);
                                 break;
-                            case 3:
+                            case 3:// search book by subject
                                 System.out.println("search books by subject");
+                                String search_subject = prompt("Enter subject to search : ");
+                                bm.listBooksBySubject(search_subject);
+                                
                                 break;
-                            case 4:
+                            case 4: // issue a book
                                 System.out.println("Issues a book");
-                                break;
+                                 int issue_isbn = Integer.parseInt(prompt("Enter isbn to Issue : "));
+                                  Book book = bm.searchBookByIsbn(issue_isbn);  
+                                  try{
+                                    if(book==null){
+                                        throw new BookNotFoundException();
+                                    }
+                                    if(book.getAvailable_quantity()>0){
+                                        if(btm.issueBook(rollno, issue_isbn)){
+                                            book.setAvailable_quantity(book.getAvailable_quantity()-1);
+                                            System.out.println("book has Been issued");
+                                        }
+                                    } 
+                                    else{
+                                        System.out.println(
+                                            "book not availble to issue ...");
+                                        
+                                    }
+                                   
+                                  }
+                                  catch(BookNotFoundException bnfe){
+                                    System.out.println(bnfe);
+                                  }                                
+                                 break;
                             case 5:
                                 System.out.println("To return a book");
-                                break;
+                                 int return_isbn = Integer.parseInt(prompt("Enter isbn to Return : "));
+                                 book=bm.searchBookByIsbn(return_isbn);
+                                 if (book!=null){
+                                 if(btm.returnBook(rollno,return_isbn)){
+                                        book.setAvailable_quantity(book.getAvailable_quantity()+1);
+                                        System.out.println("thank For returning the book");
+                                    }
+                                    else{
+                                        System.out.println("Could not Return a book");
+                                    }
+                                }
+                                else{
+                                    System.out.println("book does not exits");
+                                }
+                                 break;
                             case 99:
                                 System.out.println("Thanks for using Library");
                                 break;
@@ -172,36 +219,40 @@ public class Main {
                                 System.out.println(serach_book);
                             break;
                         case 23: // add a book to libray
-                            int isbn=Integer.parseInt(prompt("Enter ISBN : "));
-                            String title=prompt("Enter Title : ");
-                            String author=prompt("Enter Author : ");
-                            String publisher=prompt("Enter Publisher : ");
-                            int edition=Integer.parseInt(prompt("Enter Edition : "));
-                            String subject=prompt("Enter a Subject : ");
-                            int available_quantity=Integer.parseInt(prompt("Enter Available Quanitity : "));
-                            Book add_book = new Book(isbn, title, author, publisher, edition, subject, available_quantity);
+                            int isbn = Integer.parseInt(prompt("Enter ISBN : "));
+                            String title = prompt("Enter Title : ");
+                            String author = prompt("Enter Author : ");
+                            String publisher = prompt("Enter Publisher : ");
+                            int edition = Integer.parseInt(prompt("Enter Edition : "));
+                            String subject = prompt("Enter a Subject : ");
+                            int available_quantity = Integer.parseInt(prompt("Enter Available Quanitity : "));
+                            Book add_book = new Book(isbn, title, author, publisher, edition, subject,
+                                    available_quantity);
                             bm.addBook(add_book);
                             System.out.println("book added !");
                             break;
                         case 24:// update a record
-                            int update_isbn=Integer.parseInt(prompt("Enter ISBN to update : "));
-                             title=prompt("Enter Title : ");
-                            author=prompt("Enter Author : ");
-                            publisher=prompt("Enter Publisher : ");
-                            edition=Integer.parseInt(prompt("Enter Edition : "));
-                            subject=prompt("Enter a Subject : ");
-                            available_quantity=Integer.parseInt(prompt("Enter Available Quanitity : "));
+                            int update_isbn = Integer.parseInt(prompt("Enter ISBN to update : "));
+                            title = prompt("Enter Title : ");
+                            author = prompt("Enter Author : ");
+                            publisher = prompt("Enter Publisher : ");
+                            edition = Integer.parseInt(prompt("Enter Edition : "));
+                            subject = prompt("Enter a Subject : ");
+                            available_quantity = Integer.parseInt(prompt("Enter Available Quanitity : "));
                             bm.updateBook(update_isbn, title, author, publisher, edition, subject, available_quantity);
                             System.out.println("Record Updated !");
-                            break;    
+                            break;
                         case 25: // delete a record
-                              int delete_isbn=Integer.parseInt(prompt("Enter ISBN to Delete : "));
-                              if (bm.deleteBook(delete_isbn)) {
+                            int delete_isbn = Integer.parseInt(prompt("Enter ISBN to Delete : "));
+                            if (bm.deleteBook(delete_isbn)) {
                                 System.out.println("Record a Deleted");
-                              }
-                              else{
+                            } else {
                                 System.out.println("Record not found to delete");
-                              }
+                            }
+                            break;
+                        case 31:// show all transcation
+                            System.out.println("===== All Records =====");
+                            btm.showAll();
                             break;    
                         case 99:
                             System.out.println("thanks for using program");
@@ -217,6 +268,7 @@ public class Main {
         } while (choice != 3);
         sm.writeToFile();
         bm.writeToFile();
+        btm.writeToFile();
         sc.close();
 
     }

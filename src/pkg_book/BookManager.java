@@ -40,7 +40,7 @@ public class BookManager {
     }
     public void listBooksBySubject(String subject){
         for (Book book : book_list) {
-            if (book.getSubject()==subject) {
+            if (book.getSubject().equals(subject)) {
                 System.out.println(book);
             }
         }

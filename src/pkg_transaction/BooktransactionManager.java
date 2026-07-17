@@ -2,6 +2,7 @@ package pkg_transaction;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -67,6 +68,16 @@ public class BooktransactionManager {
 
     public void showAll(){
         for (Booktransaction book_i : book_list) System.out.println(book_i);
+    }
+
+    public void writeToFile() {
+      try {
+        oos_booktransaction=new ObjectOutputStream(new FileOutputStream(book_file));
+        oos_booktransaction.writeObject(book_list);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } 
     }
 
 }
